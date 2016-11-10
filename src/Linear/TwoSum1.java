@@ -1,3 +1,5 @@
+package Linear;
+
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Random;
@@ -22,7 +24,13 @@ public class TwoSum1 {
 
     }
 
-    //return if the arr exist 1 pairs of sum
+    /* Given an integer array and a specific target, find whether there are two numbers in the array, the sum of which is the target
+     * Input:          int[] arr   given an integer array
+     * Output:         boolean     find return true not return false
+     * Corner Case:                 Null input or length <= 1 return false
+     * Time Complexity:             O(nlogn) + O(n)
+     * Key:                     Sort + Two Pointer
+     */
     public static boolean twoSumTwoPointer(int[] arr, int sum) { //nlogn
         if (arr == null || arr.length < 2)
             return false;
@@ -43,6 +51,11 @@ public class TwoSum1 {
         return false;
     }
 
+    /*  Return index pair instead of boolean
+     *  Key: using HashMap
+     *  Space Complexity: O(n)
+     *  Time Complexity:  O(n)
+     */
     public static void twoSum2Pass(int[] arr, int sum) {
         if (arr == null || arr.length < 2)
             throw new IllegalStateException();
@@ -58,6 +71,9 @@ public class TwoSum1 {
         }
     }
 
+    /*
+     *
+     */
     public static void twoSum1Pass(int[] arr, int sum) {
         if (arr == null || arr.length < 2)
             throw new IllegalStateException();
