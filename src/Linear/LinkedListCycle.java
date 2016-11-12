@@ -2,6 +2,8 @@ package Linear;
 
 /**
  * Created by rliu on 11/11/16.
+ * Return True/False to see if the linkedList has a cycle in it
+ * Using slow point and fast point will definitely work, as slow point walk one node each step and will eventually meet fast point if there is a cycle
  */
 public class LinkedListCycle {
     public static void main(String[] args) {
