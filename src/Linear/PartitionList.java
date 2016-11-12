@@ -32,36 +32,11 @@ public class PartitionList {
     }
 
     public static void main(String[] args) {
-        Node head = new Node(0);
         int[] arr = {2, 1, 5, 6, 1, 4};
+        Node head = new Node(arr);
         int target = 4;
-        Node temp = head;
-        for (int i : arr) {
-            Node n = new Node(i);
-            temp.next = n;
-            temp = temp.next;
-        }
-        head = partList(head.next, target);
-        System.out.println(printList(head));
+        head = partList(head, target);
+        System.out.println(head);
 
-    }
-
-    public static String printList(Node head) {
-        Node temp = head;
-        StringBuilder sb = new StringBuilder();
-        while (temp != null) {
-            sb.append(temp.val);
-            temp = temp.next;
-        }
-        return sb.toString();
-    }
-
-    private static class Node {
-        int val;
-        Node next;
-
-        Node(int val) {
-            this.val = val;
-        }
     }
 }
