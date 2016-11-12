@@ -11,6 +11,8 @@ import java.util.HashSet;
  */
 public class LongestSubString {
     public static int longestSub(String s) {
+        if (s == null || s.length() == 0)
+            return 0;
         HashSet<Character> hs = new HashSet<>();
         int start = 0;
         int end = 0;
@@ -30,6 +32,7 @@ public class LongestSubString {
     }
 
     public static void main(String[] args) {
+        System.out.println(longestSub("bb"));
         System.out.println(longestSub("bcacexg"));
         System.out.println(longestSub("bbaaaea"));
         System.out.println(longestSub("abcdeff"));
