@@ -7,20 +7,29 @@ package Linear;
  * L0-L1-L2....Ln => L0-Ln-L1...
  */
 public class ReorderList {
+    //everytime searching for the end and reorder, Time Complexity is O(N^2)
     public static Node reOrder(Node head) {
+        if (head == null)
+            return head;
+        Node curr = head;
+        while (curr.next != null && curr.next.next != null) {
+            Node temp = curr;
+            while (temp.next.next != null) {
+                temp = temp.next;
+            }
+            temp.next.next = curr.next;
+            curr.next = temp.next;
+            temp.next = null;
+            curr = curr.next.next;
+        }
         return head;
 
     }
 
     public static void main(String[] args) {
-        Node head = new Node(0);
-        int[] arr = {2, 1, 5, 6, 1, 4};
-        Node temp = head;
-        for (int i : arr) {
-            Node n = new Node(i);
-            temp.next = n;
-            temp = temp.next;
-        }
 
+        int[] arr = {1, 3, 5, 7, 6, 4, 2};
+        Node head = new Node(arr);
+        System.out.println(reOrder(head));
     }
 }
