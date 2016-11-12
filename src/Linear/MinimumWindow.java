@@ -62,7 +62,7 @@ public class MinimumWindow {
                 start++;
             }
         }
-        return s.substring(rts, rts + min);
+        return min < t.length() ? s.substring(rts, rts + min) : "";
     }
 
     public static void main(String[] args) {
