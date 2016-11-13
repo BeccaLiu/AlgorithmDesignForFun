@@ -54,7 +54,40 @@ public class ThreeSum {
             }
         }
         return rt;
+    }
 
+    //duplicates input and sorted array using 3 pointers
+    public static void threeSum3(int[] a, int target) {
+        if (a.length < 3)
+            return;
+        int fix = 0;
+
+        while (fix < a.length - 2) {
+            int reminder = target - a[fix];
+            int left = fix + 1;
+            int right = a.length - 1;
+            while (left < right) {
+                if (a[left] + a[right] == reminder) {
+                    int[] temp = new int[3];
+                    temp[0] = fix;
+                    temp[1] = left++;
+                    temp[2] = right--;
+                    System.out.println(Arrays.toString(temp));
+                    while (left < right && a[left] == a[left - 1])
+                        left++;
+                    while (left < right && a[right] == a[right + 1])
+                        right--;
+                } else if (a[left] + a[right] < reminder)
+                    left++;
+                else
+                    right--;
+
+            }
+            fix++;
+            while (fix < a.length - 2 && a[fix] == a[fix - 1]) {
+                fix++;
+            }
+        }
     }
 
     public static void main(String[] args) {
@@ -65,5 +98,8 @@ public class ThreeSum {
         System.out.println(Arrays.toString(arr));
         System.out.println(threeSum(arr, 5));
         System.out.println(Arrays.toString(threeSum2(arr, 5)));
+        Arrays.sort(arr);
+        System.out.println(Arrays.toString(arr));
+        threeSum3(arr, 5);
     }
 }
