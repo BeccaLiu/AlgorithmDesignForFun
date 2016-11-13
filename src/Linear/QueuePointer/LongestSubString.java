@@ -8,6 +8,8 @@ import java.util.HashSet;
  * Given a string, find the longest substring without repeating character and return the length of this substring
  * bcacex -> 4
  * bbaaae -> 2
+ * Key: find a substring in string, you need use two pointer
+ * Follow-up: TODO: using array to replace hashSet
  */
 public class LongestSubString {
     public static int longestSub(String s) {
