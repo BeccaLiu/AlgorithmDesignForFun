@@ -1,4 +1,4 @@
-package Linear;
+package Linear.LinkedList;
 
 /**
  * Created by rliu on 11/11/16.

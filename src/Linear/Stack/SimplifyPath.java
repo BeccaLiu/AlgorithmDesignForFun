@@ -1,4 +1,4 @@
-package Linear;
+package Linear.Stack;
 
 import java.util.ArrayDeque;
 import java.util.Deque;

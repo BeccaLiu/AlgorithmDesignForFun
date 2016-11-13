@@ -1,4 +1,4 @@
-package Linear;
+package Linear.QueuePointer;
 
 /**
  * Created by rliu on 11/10/16.

@@ -1,4 +1,4 @@
-package Linear;
+package Linear.QueuePointer;
 
 import java.util.ArrayDeque;
 import java.util.Queue;
