@@ -10,7 +10,9 @@ import java.util.Deque;
  */
 public class SimplifyPath {
     public static void main(String[] args) {
+
         System.out.println(simplePath("/tmp/cg/../algo/./../etc"));
+        System.out.println(simplePathTwoPointer("/tmp/cg/../algo/./../etc"));
     }
 
     public static String simplePath(String s) {
@@ -29,6 +31,28 @@ public class SimplifyPath {
         StringBuilder sb = new StringBuilder();
         while (!stack.isEmpty()) {
             sb = sb.insert(0, "/" + stack.pop());
+        }
+        return sb.toString();
+    }
+
+    public static String simplePathTwoPointer(String s) {
+        if (s == null || s.length() == 0)
+            return "";
+        String[] arr = s.split("/");
+        StringBuilder sb = new StringBuilder();
+        int count = 0;
+        for (int i = arr.length - 1; i >= 0; i--) {
+            if (arr[i].equals(".") || arr[i].equals(""))
+                continue;
+            else if (arr[i].equals(".."))
+                count++;
+            else {
+                if (count > 0) {
+                    count--;
+                    continue;
+                }
+                sb = sb.insert(0, "/" + arr[i]);
+            }
         }
         return sb.toString();
     }
