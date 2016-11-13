@@ -13,7 +13,7 @@ package Linear.LinkedList;
 public class ReorderList {
     //searching for the end and reorder every time, Time Complexity is O(N^2)
     public static Node reOrder(Node head) {
-        if (head == null)
+        if (head == null || head.next == null || head.next.next == null)
             return head;
         Node curr = head;
         while (curr.next != null && curr.next.next != null) {
@@ -30,10 +30,12 @@ public class ReorderList {
     }
 
     public static Node reOrderFast(Node head) {
+        if (head == null || head.next == null || head.next.next == null)
+            return head;
         Node fast = head;
         Node slow = head;
         //find mid
-        while (fast != null && fast.next != null) {
+        while (fast != null && fast.next != null) { //奇数,slow落到中间点,偶数落到一半前面一个点
             slow = slow.next;
             fast = fast.next.next;
         }
