@@ -1,4 +1,4 @@
-package Tree;
+package Tree.BinarySerach;
 
 import java.util.Random;
 
