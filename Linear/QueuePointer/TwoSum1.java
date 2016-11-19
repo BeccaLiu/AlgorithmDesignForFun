@@ -7,6 +7,7 @@ import java.util.stream.IntStream;
 
 /**
  * Created by rliu on 11/8/16.
+ * Two Sum I
  */
 public class TwoSum1 {
     public static void main(String[] args) {

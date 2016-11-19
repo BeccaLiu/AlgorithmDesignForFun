@@ -1,6 +1,7 @@
 package Linear.LinkedList;
 
 /**
+ * Remove nth Node from the tail of the list
  * Created by rliu on 11/11/16.
  * input: n==0? || n>nodelist.size?
  */

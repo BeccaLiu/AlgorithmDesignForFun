@@ -1,6 +1,7 @@
 package Linear.LinkedList;
 
 /**
+ * Partition List
  * Created by rliu on 11/11/16.
  * Given a singly linked list and a value x, partition the list with the rule:
  * all notes less than x comes before nodes greater than or equal to x.

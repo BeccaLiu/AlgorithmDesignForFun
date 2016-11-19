@@ -4,6 +4,7 @@ import java.util.ArrayDeque;
 
 /**
  * Created by rliu on 11/13/16.
+ * Binary tree upside down
  * Given a binary tree with specific structure
  * all right nodes are either 1. leaf nodes with left sibling, 2 empty
  * valid:           invalid

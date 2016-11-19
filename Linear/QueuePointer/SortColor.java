@@ -4,6 +4,7 @@ import java.util.Arrays;
 
 /**
  * Created by rliu on 11/12/16.
+ * Sort Color
  * Given an array with only 3 possible values 0,1,2, representing 3 different colors, red, white and blue.
  * sort the array to make the same color are adjacent with the order of red, white, and blue
  * Input: int[] colors      0 1 2 0 2 2 1 1 0 0

@@ -1,6 +1,7 @@
 package Linear.QueuePointer;
 
 /**
+ * Gas Station
  * Created by rliu on 11/10/16.
  * gas[i]=[3,4,3,6,7,1,2]
  * cost[i]=[2,4,5,1,5,1,3]

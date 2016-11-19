@@ -5,6 +5,7 @@ import java.util.Deque;
 
 /**
  * Created by rliu on 11/10/16.
+ * Simple Path
  * Simplify the absolute path for a unix-file style
  * path=/tmp/../algo/./../etc  =/etc
  */

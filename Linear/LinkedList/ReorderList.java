@@ -2,7 +2,7 @@ package Linear.LinkedList;
 
 /**
  * Created by rliu on 11/11/16.
- * Reorder the List
+ * Reorder List
  * 2-1-5-6-1-4 => 2-4-1-1-5-6
  * L0-L1-L2....Ln => L0-Ln-L1...
  * Key: 1. two pointer: one move from left to right, one move from right to left, however, it is a singly list can only move from left to right

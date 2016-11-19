@@ -3,6 +3,7 @@ package Linear.QueuePointer;
 import java.util.HashMap;
 
 /**
+ * Minimum Window
  * Created by rliu on 11/11/16.
  * Minimum Window
  * Given a string S and a string T

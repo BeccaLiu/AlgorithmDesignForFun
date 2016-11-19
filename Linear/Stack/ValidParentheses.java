@@ -6,6 +6,7 @@ import java.util.HashMap;
 
 /**
  * Created by rliu on 11/12/16.
+ * Valid Parentheses
  * Given a string with only the character of () {} [] check whether the input is valid
  * key: Using stack to solve the data stream problem that you need scan each item of the input, but might store it somewhere and process it later
  */
