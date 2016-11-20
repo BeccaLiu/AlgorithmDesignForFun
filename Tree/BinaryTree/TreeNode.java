@@ -18,14 +18,16 @@ public class TreeNode {
         ArrayDeque<TreeNode> queue = new ArrayDeque<>();
         this.val = arr[0];
         queue.offer(this);
-        for (int i = 0; i * 2 + 2 < arr.length; i++) {
+        for (int i = 0; i * 2 + 1 < arr.length; i++) {
             TreeNode curr = queue.poll();
             TreeNode left = new TreeNode(arr[i * 2 + 1]);
-            TreeNode right = new TreeNode(arr[i * 2 + 2]);
             curr.left = left;
-            curr.right = right;
             queue.offer(left);
-            queue.offer(right);
+            if (i * 2 + 2 < arr.length) {
+                TreeNode right = new TreeNode(arr[i * 2 + 2]);
+                curr.right = right;
+                queue.offer(right);
+            }
         }
     }
 }
