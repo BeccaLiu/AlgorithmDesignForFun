@@ -3,6 +3,7 @@ package Tree.BinaryTree;
 /**
  * Created by rliu on 11/21/16.
  * search and insert node in BST
+ * TODO: DETELE root;
  */
 public class searchBST {
     public static void main(String[] args) {
@@ -14,7 +15,7 @@ public class searchBST {
         root.right.right = new TreeNode(13);
         System.out.println(searchRec(root, 7));
         System.out.print(searchIter(root, 7));
-        System.out.print(deleteBST(root, 10));
+        System.out.print(deleteBST(root, 12));
     }
 
     public static TreeNode searchRec(TreeNode root, int target) {
@@ -92,7 +93,7 @@ public class searchBST {
         //can not find it
         if (cur == null)
             return root;
-        if (cur.left == null && cur.right == null)
+        if (cur.left == null && cur.right == null) //not working in this way
             cur = null;
         else if (cur.left == null)
             cur = cur.right;
