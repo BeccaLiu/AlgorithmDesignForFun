@@ -6,7 +6,7 @@ package Linear.LinkedList;
 public class Node {
     int val;
     Node next;
-    Node RandomNext;
+    Node randomNext;
 
     Node(int val) {
         this.val = val;
