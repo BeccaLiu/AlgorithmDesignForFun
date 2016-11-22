@@ -80,6 +80,33 @@ public class DeepCopyLinkedList {
         System.out.print(dummy.next);
     }
 
+    public static void deepCopyWithOutHashmap(Node head) {
+        if (head == null)
+            return;
+        Node dummy = new Node(0);
+        Node cur = head;
+        while (cur != null) {
+            Node temp = new Node(cur.val);
+            temp.next = cur.next;
+            cur.next = temp;
+            cur = cur.next.next;
+        }
+        cur = head;
+        while (cur != null) {
+            if (cur.randomNext != null)
+                cur.next.randomNext = cur.randomNext.next;
+            cur = cur.next.next;
+        }
+        dummy.next = head.next;
+        cur = head.next;
+        while (cur.next != null) {
+            cur.next = cur.next.next;
+            cur = cur.next;
+        }
+        System.out.println(dummy.next);
+
+    }
+
     public static void main(String[] args) {
         int[] arr = {1, 2, 3, 4, 5};
         Node head = new Node(arr);
@@ -89,5 +116,6 @@ public class DeepCopyLinkedList {
         simpleCopy(head);
         deepCopy2Pass(head);
         deepCopy1Pass(head);
+        deepCopyWithOutHashmap(head);
     }
 }
