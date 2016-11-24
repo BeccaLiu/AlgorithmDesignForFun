@@ -1,6 +1,7 @@
 package Tree.BinaryTree;
 
 /**
+ * Recursion
  * Created by rliu on 11/20/16.
  * Symmetric tree
  * given a binary tree, check whether it is a mirror of itself
