@@ -11,6 +11,8 @@ import java.util.ArrayList;
  * 9    2          ,[2,9]
  * 1 3   4 6         ,[1,3,4,6]}
  * Key: using deque and define a flag(leftToRight)
+ *
+ * Can using double-linked list
  */
 public class ZigZagLevelOrderTraversal {
     public static void main(String[] args) {
