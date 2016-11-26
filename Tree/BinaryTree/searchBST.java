@@ -3,7 +3,7 @@ package Tree.BinaryTree;
 /**
  * Created by rliu on 11/21/16.
  * search and insert node in BST
- * TODO: DETELE root;
+ * BST: no duplicate
  */
 public class searchBST {
     public static void main(String[] args) {
@@ -13,9 +13,10 @@ public class searchBST {
         root.left.left = new TreeNode(7);
         root.left.right = new TreeNode(9);
         root.right.right = new TreeNode(13);
-        System.out.println(searchRec(root, 7));
-        System.out.print(searchIter(root, 7));
-        System.out.print(deleteBST(root, 12));
+        System.out.println(searchRec(root, 7).val);
+        System.out.println(searchIter(root, 7).val);
+        System.out.print(deleteBST(root, 8));
+        System.out.println();
     }
 
     public static TreeNode searchRec(TreeNode root, int target) {
@@ -73,16 +74,22 @@ public class searchBST {
         return root;
     }
 
-    public static TreeNode deleteBST(TreeNode root, int target) {
+
+    //To delete: 1. no children
+    //           2. one children
+    //           3. two children
+    public static TreeNode deleteBST(TreeNode root, int val) {
         if (root == null)
             return root;
-        TreeNode pre;
+        TreeNode dummy = new TreeNode(Integer.MIN_VALUE);
+        dummy.right = root;
+        TreeNode pre = dummy;
         TreeNode cur = root;
+        //first: find the target node
         while (cur != null) {
-
-            if (cur.val == target)
+            if (cur.val == val)
                 break;
-            else if (cur.val < target) {
+            else if (cur.val < val) {
                 pre = cur;
                 cur = cur.right;
             } else {
@@ -90,28 +97,56 @@ public class searchBST {
                 cur = cur.left;
             }
         }
-        //can not find it
+        // not find target node
         if (cur == null)
             return root;
-        if (cur.left == null && cur.right == null) //not working in this way
+
+        //has no child
+        if (cur.left == null && cur.right == null)
             cur = null;
-        else if (cur.left == null)
-            cur = cur.right;
-        else if (cur.right == null)
-            cur = cur.left;
-        else {
-            TreeNode curr = cur.left;
-            TreeNode prev = cur.left;
-            while (curr.right != null) {
-                prev = curr;
-                curr = curr.right;
+            //only has one child
+        else if (cur.left == null || cur.right == null) {
+            deleteNodeWithOneKids(pre, cur);
+        } else {
+            //has two children
+            TreeNode prev = cur;
+            TreeNode max = cur.left;
+            while (max.right != null) {
+                prev = max;
+                max = max.right;
 
             }
-            cur.val = curr.val;
-            prev.right = null;
+            cur.val = max.val;
+            if (max.left == null && max.right == null)
+                deleteNodeWithZerokids(prev, max);
+            else
+                deleteNodeWithOneKids(prev, max);
 
         }
         return root;
+    }
+
+    public static void deleteNodeWithZerokids(TreeNode pre, TreeNode cur) {
+        if (pre.left == cur)
+            pre.left = null;
+        else
+            pre.right = null;
+    }
+
+    public static void deleteNodeWithOneKids(TreeNode pre, TreeNode cur) {
+        if (cur.left == null) {
+            if (pre.right == cur) {
+                pre.right = cur.right;
+            } else {
+                pre.left = cur.right;
+            }
+        } else if (cur.right == null) {
+            if (pre.right == cur) {
+                pre.right = cur.left;
+            } else {
+                pre.left = cur.left;
+            }
+        }
     }
 
 }

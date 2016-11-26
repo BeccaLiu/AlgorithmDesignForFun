@@ -4,7 +4,6 @@ import java.util.HashMap;
 
 /**
  * Created by rliu on 11/13/16.
- * TODO:
  */
 public class DeepCopyLinkedList {
     public static void simpleCopy(Node head) {
