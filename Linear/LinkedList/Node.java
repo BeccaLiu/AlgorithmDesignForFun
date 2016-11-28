@@ -4,11 +4,11 @@ package Linear.LinkedList;
  * Created by rliu on 11/11/16.
  */
 public class Node {
-    int val;
-    Node next;
-    Node randomNext;
+    public int val;
+    public Node next;
+    public Node randomNext;
 
-    Node(int val) {
+    public Node(int val) {
         this.val = val;
     }
 
