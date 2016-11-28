@@ -56,8 +56,10 @@ public class KSmallestInSortedMatrix {
         while (!minHeap.isEmpty()) {
             Pointer cur = minHeap.poll();
             count++;
-            if (count == k)
+            if (count == k) {
+                System.out.println(cur);
                 return cur.value;
+            }
             if (cur.row + 1 < a.length && visited[cur.row + 1][cur.col] == false) {
                 minHeap.add(new Pointer(a[cur.row + 1][cur.col], cur.row + 1, cur.col));
                 visited[cur.row + 1][cur.col] = true;
