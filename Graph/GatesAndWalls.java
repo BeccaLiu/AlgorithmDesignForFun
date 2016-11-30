@@ -27,7 +27,7 @@ public class GatesAndWalls {
                 {0, -1, Integer.MAX_VALUE, Integer.MAX_VALUE,}
         };
         //bfsStartWithDoor(gw);
-        mutiEndBFS(gw);
+        multiEndBFS(gw);
         for (int i = 0; i < gw.length; i++) {
             for (int j = 0; j < gw[0].length; j++) {
                 System.out.print(String.format("%3d", gw[i][j]));
@@ -72,7 +72,7 @@ public class GatesAndWalls {
         }
     }
 
-    public static void mutiEndBFS(int[][] gw) {
+    public static void multiEndBFS(int[][] gw) {
         ArrayDeque<int[]> queue = new ArrayDeque<>();
         for (int i = 0; i < gw.length; i++) {
             for (int j = 0; j < gw[0].length; j++) {
