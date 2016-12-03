@@ -23,8 +23,9 @@ public class MaximumSubarray {
         int max = arr[0];
         int sum = arr[0];
 
-        for (int left = 1; left < arr.length; left++) {
-            sum = Math.max(arr[left], arr[left] + sum);
+        for (int curr = 1; curr < arr.length; curr++) {
+            //every time when sum is decreasing, we reset the sum
+            sum = Math.max(arr[curr], arr[curr] + sum);
             max = Math.max(sum, max);
         }
         return max;
