@@ -22,12 +22,25 @@ public class MaximumSubarray {
             return Integer.MIN_VALUE;
         int max = arr[0];
         int sum = arr[0];
+        int start = 0;
+        int end = 0;
+        int curStart = 0;
 
         for (int curr = 1; curr < arr.length; curr++) {
-            //every time when sum is decreasing, we reset the sum
+            //curr is the mark the current end pointer
+            //currStart is mark the current start pointer
+            //every time when sum is decreasing, we reset the sum, and reset the currStart pointer
+            if (arr[curr] > arr[curr] + sum)
+                curStart = curr;
             sum = Math.max(arr[curr], arr[curr] + sum);
+
+            if (sum > max) { //every time we update the sum, we update the overall start and end pointer
+                start = curStart;
+                end = curr;
+            }
             max = Math.max(sum, max);
         }
+        System.out.println(start + ":" + end);
         return max;
     }
 }
