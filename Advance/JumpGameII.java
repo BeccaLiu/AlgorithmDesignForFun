@@ -39,11 +39,11 @@ public class JumpGameII {
             return 0;
         int[] minSteps = new int[steps.length];
         minSteps[0] = 0;
-        int curIndex = 0;
-        for (int i = 1; i < steps.length; i++) {//i is right index;
-            for (int j = curIndex; j < i; j++) {////j is left index
+        int curIndex = 0; //curr index is the left pointer
+        for (int i = 1; i < steps.length; i++) { //i is the right pointer
+            for (int j = curIndex; j < i; j++) {
                 System.out.println(j + "/" + i);
-                if (steps[j] + j >= i) {
+                if (steps[j] + j >= i) {//left pointer can reach right pointer break;
                     minSteps[i] = minSteps[j] + 1;
                     curIndex = j;
                     break;
