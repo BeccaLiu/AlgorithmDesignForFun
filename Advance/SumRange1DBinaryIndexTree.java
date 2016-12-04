@@ -7,6 +7,8 @@ package Advance;
  * https://www.topcoder.com/community/data-science/data-science-tutorials/binary-indexed-trees/#2d
  * We often need some sort of data structure to make our algorithms faster, this structure was first used for data compression.
  * Now it is often used for storing frequencies and manipulating cumulative frequency tables.
+ * i    1   2   3   4   5   6   7   8
+ * i&-i 1   2   1   4   1   2   1   8
  */
 public class SumRange1DBinaryIndexTree {
     int[] arr;
