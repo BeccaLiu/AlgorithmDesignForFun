@@ -23,17 +23,19 @@ public class SumRange1DBinaryIndexTree {
     public static void main(String[] args) {
         int[] arr = {1, 2, 3, 4, 5, 6, 7, 8};
         SumRange1DBinaryIndexTree bit = new SumRange1DBinaryIndexTree(arr);
-        System.out.println(bit.sum(1, 4));
+        System.out.println(bit.sum(1, 6));
         bit.update(2, 0);
-        System.out.println(bit.sum(1, 4));
+        System.out.println(bit.sum(1, 6));
     }
 
+    //update, j+=(j&-j) to get parent
     public void update(int i, int val) {
         int diff = arr[i] - val;
         arr[i] = val;
         init(i + 1, -diff);
     }
 
+    //getSum j-=(j&-j) to get previous stored sum
     public int sum(int i, int j) {
         return getSum(j) - getSum(i - 1);
 
