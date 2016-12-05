@@ -90,26 +90,26 @@ public class SumRange2D {
         int midRow = root.startRow + (root.endRow - root.startRow) / 2;
         int midCol = root.startCol + (root.endCol - root.startCol) / 2;
         if (root.startRow == root.endRow) {
-            //case 1:
-            if (col <= midCol)
+            //case 1: when target at that one row that include (row,col)
+            if (col <= midCol) //target is at left
                 update(root.left, row, col, val);
             else
                 update(root.right, row, col, val);
             root.sum = root.left.sum + root.right.sum;
-            //case 2:
+            //case 2: when target at that one col that include (row,col)
         } else if (root.startCol == root.endCol) {
-            if (row <= midRow)
+            if (row <= midRow) //target is at up
                 update(root.up, row, col, val);
             else
                 update(root.down, row, col, val);
             root.sum = root.up.sum + root.down.sum;
         } else {
-            //case 3:
-            if (row <= midRow)
+            //case 3: haven't reach that particular row and col yet, still search inside a relative large range
+            if (row <= midRow) //need to update root up and down part
                 update(root.up, row, col, val);
             else
                 update(root.down, row, col, val);
-            if (col <= midCol)
+            if (col <= midCol) //also need to update root left and right part
                 update(root.left, row, col, val);
             else
                 update(root.right, row, col, val);
