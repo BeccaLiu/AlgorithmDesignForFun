@@ -52,6 +52,7 @@ public class TopKFrequentElements {
 
     }
 
+    //time: O(NlogK)
     public static void heapSolution(Num[] counts, int k) {
         PriorityQueue<Num> minheap = new PriorityQueue<>(k, new Comparator<Num>() {
             @Override
@@ -68,6 +69,7 @@ public class TopKFrequentElements {
         });
     }
 
+    //Time:atomerized O(N)
     public static void quickSortSolution(Num[] counts, int k) {
         int start = 0;
         int end = counts.length - 1;
