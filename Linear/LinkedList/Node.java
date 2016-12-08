@@ -22,13 +22,13 @@ public class Node {
         }
     }
 
-    public String toString() {
-        Node temp = this;
-        StringBuilder sb = new StringBuilder();
-        while (temp != null) {
-            sb.append(temp.val);
-            temp = temp.next;
-        }
-        return sb.toString();
-    }
+//    public String toString() {
+//        Node temp = this;
+//        StringBuilder sb = new StringBuilder();
+//        while (temp != null) {
+//            sb.append(temp.val);
+//            temp = temp.next;
+//        }
+//        return sb.toString();
+//    }
 }
