@@ -19,6 +19,8 @@ public class RemoveKdigits {
         String num = "5413219";
         int k = 3;
         removeDigits(num, k);
+        String num2 = "1111111";
+        removeDigits(num2, k);
     }
 
     //when problem is about scan and check back, we will think of stack
@@ -42,9 +44,13 @@ public class RemoveKdigits {
             else
                 stack.push(nums[left++]);
         }
+        while (stack.size() > num.length() - k) {
+            stack.pop();
+        }
         while (!stack.isEmpty()) {
             System.out.print(stack.removeLast());
         }
+        System.out.println();
     }
 
 }
