@@ -22,6 +22,8 @@ public class RotateImage {
 
     //key is to find the relationship
     public static void rotate(int[][] matrix) {
+        if (matrix == null || matrix.length == 0 || matrix[0].length == 0)
+            return;
         int n = matrix.length - 1;
         for (int i = 0; i <= n / 2; i++) {
             for (int j = i; j < n - i; j++) {
