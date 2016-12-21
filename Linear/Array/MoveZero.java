@@ -1,4 +1,4 @@
-package Linear.String;
+package Linear.Array;
 
 /**
  * Created by rliu on 12/20/16.
