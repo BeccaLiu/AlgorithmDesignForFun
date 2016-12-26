@@ -50,6 +50,8 @@ public class GroupAnagram {
 
         List<List<String>> rt = new ArrayList<>();
         HashMap<HashSet<Character>, ArrayList<String>> map = new HashMap<>();
+        //no need to use hashSet, just using string which stands for after sorting string
+        //HashMap<String,ArrayList<String>> map
         for (String s : strs) {
             if (s == "") {
                 if (rt.isEmpty())
@@ -58,6 +60,7 @@ public class GroupAnagram {
                 continue;
             }
             boolean existed = false;
+            //just using ContainsKey(sorted String);
             for (HashSet<Character> set : map.keySet()) {
                 int count = 0;
                 for (int i = 0; i < s.length(); i++) {

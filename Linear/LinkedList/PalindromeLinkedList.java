@@ -5,6 +5,7 @@ package Linear.LinkedList;
  * Given a singly linked list, determine if it is a palindrome.
  * Follow up:
  * Could you do it in O(n) time and O(1) space?
+ * key:回文分奇偶
  */
 public class PalindromeLinkedList {
     public static void main(String[] args) {
