@@ -1,8 +1,6 @@
 package Linear.Array;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by rliu on 12/26/16.
@@ -12,7 +10,7 @@ import java.util.List;
  */
 public class FourSum {
     public static void main(String[] args) {
-        System.out.println(fourSum(new int[]{1, 0, -1, 0, -2, 2}, 0));
+        System.out.println(fourSumSplit(new int[]{1, 0, -1, 0, -2, 2}, 0));
     }
 
     public static List<List<Integer>> fourSum(int[] nums, int target) {
@@ -51,6 +49,52 @@ public class FourSum {
                         n--;
                 }
             }
+        }
+        return list;
+    }
+
+    //using the idea of 4 sum2 to fasten the solution
+    //however we can not process the duplicate easily
+    public static List<List<Integer>> fourSumSplit(int[] nums, int target) {
+        List<List<Integer>> list = new ArrayList<List<Integer>>();
+        if (nums == null || nums.length < 4)
+            return list;
+
+        ArrayList<int[]> arr = new ArrayList<int[]>();
+        for (int i = 0; i < nums.length; i++) {
+            for (int j = i + 1; j < nums.length; j++) {
+                arr.add(new int[]{nums[i] + nums[j], i, j});
+            }
+        }
+        Collections.sort(arr, new Comparator<int[]>() {
+            @Override
+            public int compare(int[] o1, int[] o2) {
+                return o1[0] - o2[0];
+            }
+        });
+        int left = 0;
+        int right = arr.size() - 1;
+        while (left < right) {
+            int tempSum = arr.get(left)[0] + arr.get(right)[0];
+            if (tempSum == target) {
+                int i = arr.get(left)[1];
+                int j = arr.get(left)[2];
+                int m = arr.get(right)[1];
+                int n = arr.get(right)[2];
+                if (i != m && i != n && j != m && j != n) {
+                    ArrayList al = new ArrayList();
+                    al.add(nums[i]);
+                    al.add(nums[j]);
+                    al.add(nums[m]);
+                    al.add(nums[n]);
+                    list.add(al);
+                }
+                left++;
+            } else if (tempSum < target)
+                left++;
+            else
+                right--;
+
         }
         return list;
     }
