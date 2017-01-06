@@ -17,6 +17,7 @@ public class ValidAnagram {
         System.out.println(isAnagram("anagram", "nagarnm"));
     }
 
+    //time complexity: O(s.length())
     public static boolean isAnagram(String s, String t) {
         if ((s == null && t == null) || (s.length() == 0 && t.length() == 0))
             return true;
@@ -42,6 +43,19 @@ public class ValidAnagram {
             if (i != 0)
                 return false;
         }
+        return true;
+    }
+
+    //faster solution
+    // as the input is char, so there are only 26 char
+    //although this solution is s.length as well
+    //but much more faster than previous one, as building hashmap take times.
+    //
+    public static boolean isAnagramCharArray(String s, String t) {
+        int[] alphabet = new int[26];
+        for (int i = 0; i < s.length(); i++) alphabet[s.charAt(i) - 'a']++;
+        for (int i = 0; i < t.length(); i++) alphabet[t.charAt(i) - 'a']--;
+        for (int i = 0; i < 26; i++) if (alphabet[i] != 0) return false;
         return true;
     }
 }
