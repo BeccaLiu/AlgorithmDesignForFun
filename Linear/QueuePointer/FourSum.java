@@ -1,4 +1,4 @@
-package Linear.Array;
+package Linear.QueuePointer;
 
 import java.util.*;
 
@@ -21,27 +21,26 @@ public class FourSum {
         //[I am stuck here]: do not understand the physical meaning of i,j,m,n
         //i is the index of the first integer, i will be different each round
         for (int i = 0; i + 3 < nums.length; i++) {
-            if (i > 0 && nums[i] == nums[i - 1])
+            if (i > 0 && nums[i] == nums[i - 1]) //skip some i will faster
                 continue;
             for (int j = i + 1; j + 2 < nums.length; j++) {
-                if (j > i + 1 && nums[j] == nums[j - 1])
+                if (j > i + 1 && nums[j] == nums[j - 1]) //skip some j will faster
                     continue;
                 int res = target - (nums[i] + nums[j]);
                 int m = j + 1;
                 int n = nums.length - 1;
-                while (m < n) {
+                while (m < n) { //using idea of two pointer
                     int sum = nums[m] + nums[n];
                     if (sum == res) {
-                        StringBuilder sb = new StringBuilder();
                         ArrayList al = new ArrayList();
                         al.add(nums[i]);
                         al.add(nums[j]);
                         al.add(nums[m++]);
                         al.add(nums[n--]);
                         list.add(al);
-                        while (m < n && nums[m] == nums[m - 1])
+                        while (m < n && nums[m] == nums[m - 1]) //skip some m
                             m++;
-                        while (m < n && nums[n] == nums[n + 1])
+                        while (m < n && nums[n] == nums[n + 1]) //skip some n
                             n--;
                     } else if (sum < res)
                         m++;
