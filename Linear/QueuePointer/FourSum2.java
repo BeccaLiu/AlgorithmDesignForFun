@@ -20,9 +20,9 @@ public class FourSum2 {
     //using binary search to find the target number still too slow, can not pass the huge input test
     //n^3logn
     public static int fourSumCount(int[] A, int[] B, int[] C, int[] D) {
-        Arrays.sort(A);
-        Arrays.sort(B);
-        Arrays.sort(C);
+//        Arrays.sort(A);
+//        Arrays.sort(B);
+//        Arrays.sort(C);
         Arrays.sort(D);
         int count = 0;
         for (int i = 0; i < A.length; i++) {
@@ -31,13 +31,13 @@ public class FourSum2 {
                     int target = -(A[i] + B[j] + C[m]);
                     int left = 0;
                     int right = D.length - 1;
-                    while (left <= right) {
+                    while (left <= right) { //using binary search
                         int mid = (left + right) >> 1;
                         if (D[mid] == target) {
                             count++;
                             int l = mid - 1;
                             int r = mid + 1;
-                            while (l >= 0 && D[l--] == D[mid])
+                            while (l >= 0 && D[l--] == D[mid]) //find same content, but different index
                                 count++;
                             while (r < D.length && D[r++] == D[mid])
                                 count++;
@@ -53,11 +53,12 @@ public class FourSum2 {
         return count;
     }
 
-    //think of hashmap n^3
+    //think of hashmap n^3, trade speed using space,
     public static int fourSumCountHash(int[] A, int[] B, int[] C, int[] D) {
         int count = 0;
         for (int i = 0; i < A.length; i++) {
             for (int j = 0; j < B.length; j++) {
+                //hashmap the arr C, and iterate arr D to find match.
                 HashMap<Integer, Integer> map = new HashMap<>();//key is the value, value is the count of duplicate input
                 int sum = A[i] + B[j];
                 for (int m = 0; m < C.length; m++) {
