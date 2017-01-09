@@ -16,21 +16,25 @@ import java.util.ArrayList;
  * Returns [4, 5, 3], [2], [1].
  */
 public class FindLeavesOfBinaryTree {
-    //[I am stuck here]: using height
+    //[I am stuck here]: using DistanceFromLeaf
     public static void main(String[] args) {
         TreeNode root = new TreeNode(new int[]{1, 2, 3, 4, 5, 6});
         root.left.right.left = new TreeNode(7);
         ArrayList<ArrayList<Integer>> res = new ArrayList<>();
-        height(root, res);
-        System.out.print(res);
+        DistanceFromLeaf(root, res);
     }
 
-    public static int height(TreeNode node, ArrayList<ArrayList<Integer>> res) {
+    //Analysis: brainstorm the question,usually we tag the DistanceFromLeaf of a node from root to leaf, from level 0 to level h,
+    //          but here, if we want to print the leaf first, we need to see leaf as the level 0, and its parent is level 2
+    //          so this question is to calculate the distance of every node from its leaf children
+    //          for each recursive call, we can only get access to current root, and left node, and right node and we also need to know the distance of left and right, so that we can calculate the current distance
+    //          so the return value is int, as we are process previous result immediately.
+    public static int DistanceFromLeaf(TreeNode node, ArrayList<ArrayList<Integer>> res) {
         if (node == null)
             return 0;
-        int leftHeight = height(node.left, res);
-        int rightHeight = height(node.right, res);
-        int currentHeight = Math.max(leftHeight, rightHeight) + 1;
+        int leftBottomUpHeight = DistanceFromLeaf(node.left, res);
+        int rightBottomUpHeight = DistanceFromLeaf(node.right, res);
+        int currentHeight = Math.max(leftBottomUpHeight, rightBottomUpHeight) + 1;
         if (currentHeight > res.size())
             res.add(new ArrayList<>());
         res.get(currentHeight - 1).add(node.val);
