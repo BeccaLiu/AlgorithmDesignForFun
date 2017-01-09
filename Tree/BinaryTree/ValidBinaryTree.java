@@ -29,4 +29,18 @@ public class ValidBinaryTree {
         //recursion down
         return isValid(curr.left, min, curr.val) && isValid(curr.right, curr.val, max);
     }
+
+
+    //this method is slower, because the previous method will stop recursive down when it found a invalid node,(it may not check every node) which the worst case is O(n) when the error happened at leaf.
+    //but this method is recursive down to the leaf, and get back, it will check every node, which is definitely O(n)
+    public static boolean isValidslower(TreeNode curr, int min, int max) {
+        if (curr == null)
+            return true;
+        //recursion down
+        return isValid(curr.left, min, curr.val) && isValid(curr.right, curr.val, max) && curr.val < max && curr.val > min;
+        //but you can change it to : to make it same as previous
+        //return curr.val < max && curr.val > min&&isValid(curr.left, min, curr.val) && isValid(curr.right, curr.val, max);
+    }
+
+
 }
