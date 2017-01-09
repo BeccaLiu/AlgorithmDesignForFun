@@ -58,9 +58,24 @@ public class KthSmallestElementBST {
     }
 
     //binary search fastest way!! unable to think of this solution
-    //TODO: according someone's code share, I think this solution is slower
+    //However, the time complexity of this method is still O(n) in worst case, as it is using the idea of binary search, but actually did not get rid of half soultion space
     public static int kthSmallestBinary(TreeNode root, int k) {
-        return 0;
+        if (root == null)
+            return -1;
+        int[] res = new int[]{Integer.MIN_VALUE};
+        helper(root, k, res);
+        return res[0];
+    }
+
+    public static int helper(TreeNode root, int k, int[] res) {
+        if (res[0] != Integer.MIN_VALUE && root == null)
+            return 0;
+        int leftCount = helper(root.left, k, res);
+        if (leftCount + 1 == k)
+            res[0] = root.val;
+        int rightCount = helper(root.right, k - leftCount - 1, res);
+
+        return leftCount + rightCount + 1;
 
     }
 }
