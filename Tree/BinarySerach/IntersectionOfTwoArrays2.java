@@ -40,11 +40,14 @@ public class IntersectionOfTwoArrays2 {
         }
 
         HashMap<Integer, Integer> map = new HashMap<>();
-        for (int i = 0; i < longer.length; i++)
-            if (map.containsKey(longer[i]))
-                map.put(longer[i], map.get(longer[i]) + 1);
+        for (int i = 0; i < longer.length; i++) {
+            //get value first is faster than traditional way
+            Integer val = map.get(longer[i]);
+            if (val != null)
+                map.put(longer[i], val + 1);
             else
                 map.put(longer[i], 1);
+        }
 
         ArrayList<Integer> list = new ArrayList<>();
         for (int i = 0; i < shorter.length; i++) {
