@@ -22,6 +22,7 @@ import java.util.ArrayDeque;
  * Space Complexity: O(n) not logN, as original tree is not complete, so the layer is approximately n/2
  */
 public class BinaryTreeUpsideDown {
+    //using O(logn) space for stack
     public static TreeNode reverse(TreeNode root) {
         if (root == null)
             return root;
@@ -43,6 +44,7 @@ public class BinaryTreeUpsideDown {
         return rt;
     }
 
+    //same as previous using O(logn) space
     public static TreeNode recursionReverse(TreeNode root) {
         if (root == null || root.left == null)
             return root;
@@ -55,6 +57,7 @@ public class BinaryTreeUpsideDown {
         return newRoot;
 
     }
+
 
     public static TreeNode inPlace(TreeNode root) {
         if (root == null || root.left == null)
@@ -84,8 +87,30 @@ public class BinaryTreeUpsideDown {
     public static void main(String[] args) {
         int[] arr = {1, 2, 3, 4, 5};
         TreeNode root = new TreeNode(arr);
-        System.out.print(inPlace(root));
+        System.out.print(UpsideDownBinaryTree(root));
 
+    }
+
+    public static TreeNode UpsideDownBinaryTree(TreeNode root) {
+        //      parent
+        //   curr   right
+        TreeNode curr = root, parent = null, right = null;
+        while (curr != null) {
+            //      parent
+            //   curr   right
+            //left
+            //save the curr.left, and process curr.left point to right
+            TreeNode left = curr.left;
+            curr.left = right;
+
+            //save right right, and process curr.right point to parent
+            right = curr.right;
+            curr.right = parent;
+            //moving pointer down
+            parent = curr;
+            curr = left;
+        }
+        return parent;
     }
 
 }
