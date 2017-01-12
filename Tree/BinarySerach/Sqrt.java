@@ -7,20 +7,28 @@ package Tree.BinarySerach;
  */
 public class Sqrt {
     public static void main(String[] args) {
-        int input = 15;
-        binary(25);
-        bit(25);
+        int input = 7;
+        binary(input);
+        bit(input);
 
     }
 
     //[I am stuck here] can not think of using binary search
     public static void binary(int input) {
-        int i = 0;
-        int j = input;
         int res = 0;
-        while (i < j) {
+        if (input == 0)
+            res = 0;
+        else
+            //any number not equals to 0, their sqrt is at least 1;
+            res = 1;
+
+        int i = 1;
+        int j = input / 2;
+
+        while (i <= j) {
             int mid = i + (j - i) / 2;
-            int square = mid * mid;
+            //make mid to long is important, as a large * large num may exceed the range of int
+            long square = (long) mid * mid;
             if (square == input) {
                 res = mid;
                 break;
