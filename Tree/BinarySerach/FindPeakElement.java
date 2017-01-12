@@ -18,12 +18,18 @@ public class FindPeakElement {
     public static int findPeakElementHelper(int[] nums) {
         if (nums.length <= 1) return 0;
         int l = 0, r = nums.length - 1;
+        //invariant l is always represent the index that nums[l]>nums[l-1]
+        //invariant r is always represent the index that nums[r]>nums[r+1]
 
         while (l < r) {
             int mid = (l + r) / 2;
             if (nums[mid] > nums[mid + 1])
+                //from mid, increasing, the peak must be at left side,
+                //nums[r]>nums[r+1], nums[mid] > nums[mid + 1] so r =mid;
                 r = mid;
             else if (nums[mid] < nums[mid + 1])
+                //from mid, decreasing, the peak must be at right side,
+                //as l is always nums[l-1]<nums[l] and nums[mid] < nums[mid + 1] so l =mid+1
                 l = mid + 1;
         }
 
