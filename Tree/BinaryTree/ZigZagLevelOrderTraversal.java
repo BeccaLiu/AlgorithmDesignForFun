@@ -2,6 +2,8 @@ package Tree.BinaryTree;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Created by rliu on 11/23/16.
@@ -11,7 +13,7 @@ import java.util.ArrayList;
  * 9    2          ,[2,9]
  * 1 3   4 6         ,[1,3,4,6]}
  * Key: using deque and define a flag(leftToRight)
- *
+ * <p>
  * Can using double-linked list
  */
 public class ZigZagLevelOrderTraversal {
@@ -48,5 +50,37 @@ public class ZigZagLevelOrderTraversal {
             leftToRight = !leftToRight;
         }
         System.out.println(list);
+    }
+
+    public List<List<Integer>> zigzagLevelOrderImproved(TreeNode root) {
+
+        List<List<Integer>> list = new ArrayList<List<Integer>>();
+        if (root == null)
+            return list;
+        ArrayDeque<TreeNode> queue = new ArrayDeque<TreeNode>();
+        queue.offer(root);
+        boolean isLeftToRight = true;
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            List<Integer> l = new LinkedList<>();
+            for (int i = 0; i < size; i++) {
+                TreeNode cur = queue.poll();
+                if (cur.left != null)
+                    queue.offer(cur.left);
+                if (cur.right != null)
+                    queue.offer(cur.right);
+
+                //just zigzag when add to list
+                if (isLeftToRight)
+                    l.add(cur.val);
+                else
+                    l.add(0, cur.val);
+            }
+            isLeftToRight = !isLeftToRight;
+            list.add(l);
+        }
+
+        return list;
+
     }
 }
