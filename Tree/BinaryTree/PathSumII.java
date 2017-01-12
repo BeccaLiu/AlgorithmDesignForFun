@@ -8,7 +8,7 @@ import java.util.List;
  */
 public class PathSumII {
     public static void main(String[] args) {
-        TreeNode root = new TreeNode(new Object[]{5, 4, 8, 11, null, 13, 9, 7, 2});
+        TreeNode root = new TreeNode(new int[]{5, 4, 8, 11, 0, 13, 9, 7, 2});
 
     }
 
