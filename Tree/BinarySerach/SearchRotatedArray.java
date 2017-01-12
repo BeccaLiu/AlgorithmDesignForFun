@@ -25,6 +25,8 @@ public class SearchRotatedArray {
             int mid = start + (end - start) / 2;
             if (arr[mid] == target)
                 return mid;
+            //two ways of choosing side:
+            //1.compare mid with start to know the pivot index is at which side
             if (arr[mid] > arr[start]) {
                 if (arr[start] <= target && target < arr[mid])
                     end = mid - 1;
@@ -36,6 +38,14 @@ public class SearchRotatedArray {
                 else
                     end = mid - 1;
             }
+            //2. compare mid with target, these method will not work, be aware
+            //ex, while target>nums[mid],  and next we want to eliminate half part by if(target>nums[right])
+            //if nums=[3 4 5 6 7 0 1 ] target=7 mid=6 here target is larger than nums[right]=1 and 7 is at right side
+            //if nums=[5 6 7 0 1 3 4 ] target=7 mid=0 here target is also larger than nums[right]=4 and 7 is at left side
+            //the condition is not genetic to all cases.
+            //the key here is to know that, no matter how far you binary go shrink the solution space, there is only two possibilities
+            //a. the whole array is sorted, aka arr[start]<arr[end];
+            //b. the array is still rotated, aka arr[start]>arr[end];
         }
         return -1;
     }
