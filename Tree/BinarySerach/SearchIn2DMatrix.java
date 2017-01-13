@@ -43,8 +43,10 @@ public class SearchIn2DMatrix {
     //the matrix is each row is sorted from left to right, each column is sorted from top to bottom
     //Key: if we do the binary search, we find it is hard to get rid of part of the instance, cause if target>mid, we may go right, and go down
     // find a starting point with only one choice, rather than mid point
+    //the left bottom corner and right upper corner is so special, cause they have only one option:
+    //for upper right corner: go left is smaller, go down is larger
+    //for bottom left corner: go up is smaller, go right is larger
     //Time Complexity O(m+n)
-    //TODO: why start from the right top corner is working?
     public static boolean searchII(int[][] a, int target) {
         if (a == null || a.length == 0)
             return false;
