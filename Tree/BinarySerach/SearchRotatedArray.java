@@ -25,15 +25,18 @@ public class SearchRotatedArray {
             int mid = start + (end - start) / 2;
             if (arr[mid] == target)
                 return mid;
-            //two ways of choosing side:
-            //1.compare mid with start to know the pivot index is at which side
-            if (arr[mid] > arr[start]) {
-                if (arr[start] <= target && target < arr[mid])
+            //no matter what, the array is split by mid in two kind of format, one is increasing, and the other hash pivot point
+            //what's more, for these is a case: mid ==start as mid=start+(end-start)/2;
+            //step 1: which part mid is
+            //inside step 1: which part my target is
+            if (arr[mid] >= arr[start]) { //left part is increasing part
+                //        ^- is >= not >, just > can not fix the input like[2,1] find 1, while mid=start;
+                if (arr[start] <= target && target < arr[mid])  //target is in the increasing part
                     end = mid - 1;
                 else
                     start = mid + 1;
-            } else {
-                if (arr[mid] < target && target <= arr[end])
+            } else { //right part is increasing part
+                if (arr[mid] < target && target <= arr[end]) //target is in the increasing part
                     start = mid + 1;
                 else
                     end = mid - 1;
@@ -47,9 +50,21 @@ public class SearchRotatedArray {
             //a. the whole array is sorted, aka arr[start]<arr[end];
             //b. the array is still rotated, aka arr[start]>arr[end];
         }
+
+        //another more straightforward solution:
+        //while(start+1<end) ->the last iteration in array is start mid end three spot
+        //and inside while loop you can if (arr[mid] > arr[start]) as mid will never duplicate with start
+        //and at the end of each iteration
+        //check if(start==target) or end==target, we can cover the check start mid and end ==target all three cases;
         return -1;
     }
 
+
+    //why if there are duplicates, the above code will not work?
+    //previous question:
+    //step 1: which part mid is
+    //inside step 1: which part my target is
+    //for example 1120111111 we want to find 2, however, mid is equals to start, you still can not define, 2 is in left side or right side.
     public static int searchRotatedDup(int[] arr, int target) {
         if (arr == null || arr.length == 0)
             return -1;
@@ -69,7 +84,8 @@ public class SearchRotatedArray {
                     start = mid + 1;
                 else
                     end = mid - 1;
-            } else {
+            } else { //mid==start
+                //reset solution space, while start++ until mid!=start
                 start++;
             }
 
