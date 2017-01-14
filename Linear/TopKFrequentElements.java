@@ -118,7 +118,14 @@ public class TopKFrequentElements {
 
     public static void bucketSort(Num[] counts, int k, int size) {
         //TODO: why ArrayList<Num> [] bucket=new ArrayList<Num> [size]; is not valid?
+        //new ArrayList<> is used to define a type called ArrayList。
+        //new ArrayList[3] is used to define a array with the content type ArrayList, same as you define new Num[3]
+        //if you use ArrayList<>[3] will be have compiler error "generic array creation" it does not know you want to create arraylist or array
         List<Integer>[] bucket = new List[size];
+        //List<List<Integer>> list=new ArrayList<List<Integer>>();   V
+        //List<List<Integer>> list=new ArrayList<ArrayList<Integer>>; X
+        //ArrayList is implementation of List does not means ArrayList<ArrayList> is implementation of List<List<>>
+        //list Integer inherit from Number, but does not mean Box<Integer> inherit Box<Number>
         for (Num num : counts) {
             if (bucket[num.count] == null) {
                 bucket[num.count] = new ArrayList<>();
