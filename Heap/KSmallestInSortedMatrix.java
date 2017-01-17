@@ -1,4 +1,4 @@
-package Graph;
+package Heap;
 
 import java.util.Comparator;
 import java.util.PriorityQueue;
@@ -29,9 +29,15 @@ public class KSmallestInSortedMatrix {
                 {2, 3, 3, 5},
                 {2, 3, 4, 5}
         };
-        System.out.println(kthSmallest(a, 13));
-        System.out.println(kthSmallestWithoutVisited(a, 13));
-        System.out.println(binarySearchKthSmallest(a, 13));
+
+        int[][] b = {
+                {1, 5, 9}, {10, 11, 13}, {12, 13, 15}
+        };
+
+        System.out.println(kthSmallest(a, 5));
+        System.out.println(kthSmallestMaxHeap(a, 5));
+        System.out.println(kthSmallestWithoutVisited(a, 5));
+        System.out.println(binarySearchKthSmallest(a, 5));
     }
 
     //If we just use heap add all m*n number into min-heap, and pop first k, the add will take O((m*n-k)*log(k)) and pop will take O(klog(m*n)), which is not good
@@ -57,7 +63,6 @@ public class KSmallestInSortedMatrix {
             Pointer cur = minHeap.poll();
             count++;
             if (count == k) {
-                System.out.println(cur);
                 return cur.value;
             }
             if (cur.row + 1 < a.length && visited[cur.row + 1][cur.col] == false) {
@@ -78,7 +83,6 @@ public class KSmallestInSortedMatrix {
     //space: O(m) m=array.length
     //time: O(klogm)
     public static int kthSmallestWithoutVisited(int[][] a, int k) {
-
         if (a == null || a.length == 0)
             return Integer.MAX_VALUE;
         if (k > a.length * a[0].length)
@@ -96,13 +100,37 @@ public class KSmallestInSortedMatrix {
         while (!minHeap.isEmpty()) {
             Pointer cur = minHeap.poll();
             count++;
-            if (count == k)
+            if (count == k) {
                 return cur.value;
+            }
             if (cur.col + 1 < a[0].length) {
                 minHeap.add(new Pointer(a[cur.row][cur.col + 1], cur.row, cur.col + 1));
             }
         }
         return Integer.MAX_VALUE;
+    }
+
+
+    //using maxHeap k+nmlogk
+    public static int kthSmallestMaxHeap(int[][] matrix, int k) {
+        PriorityQueue<Integer> maxHeap = new PriorityQueue<>(new Comparator<Integer>() {
+            public int compare(Integer o1, Integer o2) {
+                return o2 - o1;
+            }
+        });
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[0].length; j++) {
+                if (k > 0) {
+                    maxHeap.add(matrix[i][j]);
+                    k--;
+                } else if (matrix[i][j] <= maxHeap.peek()) {
+                    maxHeap.remove();
+                    maxHeap.add(matrix[i][j]);
+                }
+            }
+        }
+        return maxHeap.peek();
+
     }
 
     //Is there a way to do it without heap to save the space:
@@ -113,11 +141,11 @@ public class KSmallestInSortedMatrix {
             return Integer.MAX_VALUE;
         if (k > a.length * a[0].length)
             return Integer.MAX_VALUE;
-
         int start = a[0][0];
         int end = a[a.length - 1][a[0].length - 1];
-        while (start < end) {
-            int mid = (start + end) / 2;
+
+        while (start <= end) {
+            int mid = start + (end - start) / 2;
             int i = 0;
             int j = a[0].length - 1;
             int count = 0;
@@ -129,9 +157,11 @@ public class KSmallestInSortedMatrix {
                     i++;
                 }
             }
-            if (count == k)
-                return mid;
-            else if (count < k) {
+            //just return the mid will not work, as the mid might not exist in the array, so we can not just return here, we need to wait for out of iteration
+//            if (count == k)
+//                return mid;
+
+            if (count < k) {
                 start = mid + 1;
             } else
                 end = mid - 1;

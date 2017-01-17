@@ -1,4 +1,4 @@
-package Graph;
+package Heap;
 
 import java.util.PriorityQueue;
 
