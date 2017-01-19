@@ -58,7 +58,7 @@ public class MergeKSortedList {
     }
 
     //bottom up merge sort
-    //Time ave(n)*klogk
+    //Time ave(n)*klogk logk levels and each levels has nk node
     //Space 1;
     public static Node noHeapSolution(ArrayList<Node> list) {
         int n = list.size();
