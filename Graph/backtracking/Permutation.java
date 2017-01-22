@@ -17,6 +17,7 @@ public class Permutation {
         //[[1, 2, 3], [1, 3, 2], [2, 1, 3], [2, 3, 1], [3, 1, 2], [3, 2, 1]]
         System.out.println(permutationDfsSwap(arr, new ArrayList<>(), new ArrayList<>(), 0));
         //[[1, 2, 3], [1, 3, 2], [2, 1, 3], [2, 3, 1], [3, 2, 1], [3, 1, 2]]
+        System.out.println(permutationDFSMut(arr, new boolean[arr.length], new ArrayList<>(), new ArrayList<>()));
     }
 
     /* primitive idea :BFS
@@ -98,6 +99,28 @@ public class Permutation {
             permutationDfsSwap(arr, res, list, position + 1);
             swap(arr, position, i); //swap here is prepare for previous level going right
             list.remove(list.size() - 1);
+        }
+        return res;
+    }
+
+    //base on permutation 1, but we want to have the output including nums[i-1]<=nums[i]>=nums[i+1]
+    //what is backtracking, 1-> 12 ->123 not valid go back, tentatively try all solutions, if not valid go back
+    public static List<List<Integer>> permutationDFSMut(int[] nums, boolean[] visited, ArrayList<Integer> list, List<List<Integer>> res) {
+        if (list.size() == nums.length) {
+            res.add(new ArrayList<>(list));
+            return res;
+        }
+        for (int i = 0; i < nums.length; i++) {
+            if (!visited[i]) { //using boolean array to check if current index has already in the list
+                //key is following condition: list.size()==0 but not i==0, list.size()%2==0 but not i%2==0 nums[i]<=list.get(list.size()-1)but not nums[i-1]
+                if (list.size() == 0 || (list.size() % 2 == 0 && nums[i] <= list.get(list.size() - 1) || (list.size() % 2 == 1 && nums[i] >= list.get(list.size() - 1)))) {
+                    list.add(nums[i]);
+                    visited[i] = true;
+                    permutationDFSMut(nums, visited, list, res);
+                    visited[i] = false;
+                    list.remove(list.size() - 1);
+                }
+            }
         }
         return res;
     }
