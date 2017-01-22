@@ -94,9 +94,9 @@ public class Permutation {
         }
         for (int i = position; i < arr.length; i++) {
             list.add(arr[i]);
-            swap(arr, position, i);
+            swap(arr, position, i);//swap here is for going down
             permutationDfsSwap(arr, res, list, position + 1);
-            swap(arr, position, i);
+            swap(arr, position, i); //swap here is prepare for previous level going right
             list.remove(list.size() - 1);
         }
         return res;
