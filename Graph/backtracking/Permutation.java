@@ -7,6 +7,7 @@ import java.util.List;
  * Created by rliu on 11/26/16.
  * Permuation I
  * Given a collection of distinct numbers, return all possible permutations without duplication
+ * for every backtracking problem, know the detail of how many level there are, how many for loop at each level
  */
 public class Permutation {
     public static void main(String[] args) {
