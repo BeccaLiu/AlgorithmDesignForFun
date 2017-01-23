@@ -1,6 +1,5 @@
 package Graph.backtracking;
 
-import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,36 +19,55 @@ import java.util.List;
  * [1,2],
  * []
  * ]
- * TODO:
  */
 public class Subsets {
     public static void main(String[] args) {
         int[] arr = {1, 2, 3};
-
+        System.out.println(subsets(arr));
     }
 
-    public static void subset(int[] arr, List<Integer> list, List<List<Integer>> res) {
-        res = new ArrayList<List<Integer>>();
-        ArrayDeque<ArrayList<Integer>> queue = new ArrayDeque<>();
-        queue.add(new ArrayList<Integer>());
-        while (!queue.isEmpty()) {
-            int size = queue.size();
-            for (int i = 0; i < size; i++) {
-                ArrayList<Integer> temp = queue.remove();
-                res.add(new ArrayList<>(temp));
-                for (int j = 0; j < temp.size() + 1; j++) {
+    public static List<List<Integer>> subsets(int[] nums) {
+        List<List<Integer>> res = new ArrayList<>();
+        if (nums == null || nums.length == 0)
+            return res;
+        subsetL(nums, new ArrayList<>(), res, 0);
+        return res;
+    }
 
-                }
 
-            }
-        }
-        for (int i = 0; i <= arr.length; i++) {
-            for (int j = 0; j < i; j++) {
-                list = new ArrayList<>();
-                list.add(arr[j]);
-            }
-
+    //Analysis: first it is asking about the subset, so how many set there will be for input like 1,2,3? it is 2^3 as for each number, we have two options, put it in the array or not
+    //what we need for each sub problem? 1.a pos: the pos in the arr to see we should put this nums[pos] in array or not 2. a list contains all the info in subset
+    //what we need pass to the next sub problem? tell next pos to move to the next pos 2. the newly processed subset
+    //base case: good base: when pos reach the end
+    //           no bad base;
+    public static void subset(int[] arr, ArrayList<Integer> list, List<List<Integer>> res, int pos) {
+        if (pos == arr.length) {
+            res.add(new ArrayList<Integer>(list));
+            return;
         }
 
+        //do not put arr[i] in list; just dig down
+        subset(arr, list, res, pos + 1);
+        //put arr[i] in list;
+        list.add(arr[pos]);
+        subset(arr, list, res, pos + 1);
+        list.remove(list.size() - 1);
+    }
+
+    //another way of thinking
+    //pos 0 means empty set                  []
+    //pos 1 for loop will generate      [1],    [2],[3]
+    //pos 2 for loop will generate   [12],[13],[23]
+    //pos 3 for loop will generate [1,2,3]
+    //pos means the previous pos in arr has already been looked at and already make the decision of put or not put.
+    public static void subsetL(int[] arr, ArrayList<Integer> list, List<List<Integer>> res, int pos) {
+        //do not
+        res.add(new ArrayList<Integer>(list));
+
+        for (int i = pos; i < arr.length; i++) {
+            list.add(arr[i]);
+            subset(arr, list, res, i + 1);
+            list.remove(list.size() - 1);
+        }
     }
 }
