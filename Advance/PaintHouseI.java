@@ -20,7 +20,6 @@ public class PaintHouseI {
                 {3, 20, 10}};
         System.out.println(paintHouseRec(cost));
         System.out.println(paintHouseDP(cost));
-        System.out.println(paintHouseGreedy(cost));
 
     }
 
@@ -68,34 +67,5 @@ public class PaintHouseI {
             }
         }
         return Math.min(total_cost[0], Math.min(total_cost[1], total_cost[2]));
-    }
-
-    public static int paintHouseGreedy(int[][] cost) {
-        if (cost == null || cost.length == 0)
-            return 0;
-        int lastMin = 0;
-        int lastSecMin = 0;
-        int lastMinIndex = -1;
-
-        for (int i = 0; i < cost.length; i++) {
-            int curMin = Integer.MAX_VALUE;
-            int curSecMin = Integer.MAX_VALUE;
-            int curIndex = -1;
-            for (int j = 0; j < cost[0].length; j++) {
-                int val = cost[i][j] + (j == lastMinIndex ? lastSecMin : lastMin);
-                if (val < curMin) {
-                    curSecMin = curMin;
-                    curMin = val;
-                    curIndex = j;
-                } else if (val < curSecMin) {
-                    curSecMin = val;
-                }
-
-            }
-            lastMin = curMin;
-            lastSecMin = curSecMin;
-            lastMinIndex = curIndex;
-        }
-        return lastMin;
     }
 }
