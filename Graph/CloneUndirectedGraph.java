@@ -35,7 +35,8 @@ public class CloneUndirectedGraph {
 
     }
 
-    //TODO: why this recursion has not base case?
+    //why this recursion has not base case?
+    //ANS: base case of recursive solution is that if the neighbors of curr node is already in map, aka visited, we will return directly
     //Time: O(v+2e)
     //Space O(v) for hashmap
     public static UndirectedGraph dfsHelper(UndirectedGraph a, HashMap<UndirectedGraph, UndirectedGraph> map) {
@@ -60,14 +61,16 @@ public class CloneUndirectedGraph {
         while (!queue.isEmpty()) {
             int size = queue.size();
             for (int i = 0; i < size; i++) {
-                UndirectedGraph cur = queue.poll();
-                UndirectedGraph copy = map.get(cur);
-                for (UndirectedGraph nei : cur.neighbors) {
-                    if (map.get(nei) == null) {
+                UndirectedGraph cur = queue.poll(); //cur
+                UndirectedGraph copy = map.get(cur); //copy of cur
+                for (UndirectedGraph nei : cur.neighbors) { //iterate neighbor of cur
+                    if (map.get(nei) == null) { //if the neighbor of cur is not in the map, create a copy of it
                         map.put(nei, new UndirectedGraph(nei.label));
+                        //Attention: only add neighbor to queue when it does not exist in map, ex cur=1 and neighbor(cur)=[2,3,4] when we iterate till cur=2, we do not want to put 1 to queue again
+                        //we do this is because, we want to have a one direction solution like tree from top to down, else the queue will never be empty if you move queue,add(nei) out of the if condition
                         queue.add(nei);
                     }
-                    copy.neighbors.add(map.get(nei));
+                    copy.neighbors.add(map.get(nei)); //add copy of neighbor to the neighbor of copy of cur
                 }
             }
         }

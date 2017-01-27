@@ -15,8 +15,9 @@ import java.util.Arrays;
  */
 public class InterLeavingString {
     public static void main(String[] args) {
-        System.out.println(isInterleaveDP("aabcc", "dbbca", "aadbbbaccc"));
-        System.out.println(isInterleave("aabcc", "dbbca", "aadbbbaccc"));
+        //System.out.println(isInterleaveDP("aabcc", "dbbca", "aadbbcbcac"));
+        //System.out.println(isInterleave("aabcc", "dbbca", "aadbbcbcac"));
+        System.out.println(isInterleaveDP("aa", "ab", "aaba"));
 
     }
 
@@ -89,30 +90,40 @@ public class InterLeavingString {
     // c
     // c
     public static boolean isInterleaveDP(String s1, String s2, String s3) {
-        boolean[] valid = new boolean[s2.length() + 1];
-
+        //boolean[] valid = new boolean[s2.length() + 1];
+        //valid[0]=true;
+        //if we using one array, we do save the space but we need set each item in array to either true or false which increase the time complexity
         //for i==0 and j==0 initial the value with s1 match s3 or s2 mathc s3
-        valid[0] = true;
+        boolean[][] valid = new boolean[s1.length() + 1][s2.length() + 1];
+        valid[0][0] = true;
         for (int i = 0; i <= s1.length(); i++) {
             if (i == 0) { //initial
                 for (int j = 1; j <= s2.length(); j++)
-                    valid[j] = valid[j - 1] && s2.charAt(j - 1) == s3.charAt(i + j - 1);
+                    // valid[j] = valid[j - 1] && s2.charAt(j - 1) == s3.charAt(i + j - 1);
+                    if (valid[0][j - 1] && s2.charAt(j - 1) == s3.charAt(i + j - 1))
+                        valid[0][j] = true;
             }
-            for (int j = 0; i != 0 && j <= s2.length(); j++) {
+            for (int j = 0; i != 0 && j < s2.length() + 1; j++) {
                 if (j == 0) { //initial
-                    valid[j] = valid[j] && s1.charAt(i - 1) == s3.charAt(i + j - 1);
+                    // valid[j] = valid[j] && s1.charAt(i - 1) == s3.charAt(i + j - 1);
+                    if (valid[i - 1][j] && s1.charAt(i - 1) == s3.charAt(i + j - 1))
+                        valid[i][j] = true;
                 } else {
                     //valid[j-1] means s1(0,i) s2(0,j-1) is match with s3 ,we want to know if s2(0,j) is continually matched with s3
                     //valid[j] means s1(0,i-1) s2(0,j) is match with s3, we want ot know if s1(0,i) is match with s3
-                    valid[j] = valid[j - 1] && s2.charAt(j - 1) == s3.charAt(i + j - 1) || valid[j] && s1.charAt(i - 1) == s3.charAt(i + j - 1);
+                    //valid[j] = valid[j - 1] && s2.charAt(j - 1) == s3.charAt(i + j - 1) || valid[j] && s1.charAt(i - 1) == s3.charAt(i + j - 1);
+                    if (valid[i][j - 1] && s2.charAt(j - 1) == s3.charAt(i + j - 1) || valid[i - 1][j] && s1.charAt(i - 1) == s3.charAt(i + j - 1))
+                        valid[i][j] = true;
+
                 }
             }
-            System.out.println(Arrays.toString(valid));
+            System.out.println(Arrays.toString(valid[i]));
         }
-        return valid[s2.length()];
+        return valid[s1.length()][s2.length()];
     }
 
-    //conclusion, sometime recurssion with memo is better than DP, as sometimes, you might not need all
+    //conclusion, sometime recursion with memo is better than DP
+    //TODO: I am so confused about whay these happened, even using 2d array try to not modify the array to true or false by only reset it to true, is not solving problem
     /*
     here is the output
 [true, false, false, false, false, false]
