@@ -42,7 +42,8 @@ public class KPairsWithSmallestSums {
     }
 
     //faster: klogk
-    //For every numbers in nums1, its best partner(yields min sum) always strats from nums2[0] since arrays are all sorted;
+    //think it as a matrix of sum, we first add first column in pq, and then according to what we extracted, we add from row left to row right
+    //For every numbers in nums1, its best partner(yields min sum) always start from nums2[0] since arrays are all sorted;
     //And for a specific number in nums1, its next candidate sould be [this specific number] + nums2[current_associated_index + 1], unless out of boundary;)
     public static List<int[]> kSmallestPairs(int[] nums1, int[] nums2, int k) {
         List<int[]> list = new ArrayList<>();
