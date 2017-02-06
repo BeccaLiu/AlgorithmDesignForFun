@@ -1,5 +1,7 @@
 package Linear.String;
 
+import java.util.Arrays;
+
 /**
  * Created by rliu on 12/26/16.
  * 186.Reverse Words In String 2
@@ -14,32 +16,41 @@ package Linear.String;
  */
 public class ReverseWordsInString2 {
     public static void main(String[] args) {
-        System.out.print(reverseWords("the sky is blue".toCharArray()));
+        reverseWords("the sky is blue".toCharArray());
     }
 
-    public static String reverseWords(char[] s) {
+    public static void reverseWords(char[] s) {
         if (s.length == 0)
-            return s.toString();
+            return;
         for (int i = 0; i < s.length / 2; i++) {
             swap(s, i, s.length - 1 - i);
         }
+
         int left = 0;
-        for (int i = 0; i <= s.length; i++) {
-            if (i == s.length || s[i] == ' ') {
-                int right = i - 1;
-                while (left <= right) {
-                    swap(s, left++, right--);
+        int right = 0;
+        while (right <= s.length) {
+            if (right == s.length || s[right] == ' ') {
+                int i = left;
+                int j = right - 1;
+                while (i < j) {
+                    swap(s, i++, j--);
                 }
-                left = i + 1;
+                left = right + 1;
             }
+            right++;
         }
-        return s.toString();
+        System.out.println(Arrays.toString(s));
     }
 
     public static void swap(char[] s, int i, int j) {
-        char temp = s[i];
-        s[i] = s[j];
-        s[j] = temp;
+        if (s[i] != s[j]) {
+            s[i] ^= s[j];
+            s[j] ^= s[i];
+            s[i] ^= s[j];
+//            char temp = s[i];
+//            s[i] = s[j];
+//            s[j] = temp;
+        }
     }
 
 }
