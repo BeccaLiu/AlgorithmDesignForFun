@@ -17,8 +17,8 @@ package Tree.BinaryTree;
 public class LowestCommonAncestor {
     public static void main(String[] args) {
         TreeNode root = new TreeNode(new int[]{6, 2, 8, 0, 4, 7, 9, 3, 5});
-        TreeNode p = root.right;
-        TreeNode q = root.right.right;
+        TreeNode p = root.left;
+        TreeNode q = root.left.right;
 
         TreeNode[] ancestor = new TreeNode[1];
         lowestCommonAncestor236(root, p, q, ancestor);
@@ -27,6 +27,13 @@ public class LowestCommonAncestor {
     }
 
     //key is still like left and right split and root is ancestor, or root if p and q is a the other side
+    //ancestor[] is a place where my function keep the result
+    //every time running dfs, to find if find p or find q
+    //if at a level of recursion,
+    //1. we find the one of the node, we need to check if root is another node, then the ancestor is the root
+    //2. if we find both node, we need to check if ancestor is already set, if not, the root is the ancestor, ancestor[] already has the value, we know the ancestor has been found in previous recursion.
+    //we need to run dfs on all nodes, so the time complexity is O(n)
+    //compare to BST question, which we know where is p and q, here we do not have the feature of BST, we still need to know where is p, where is q, and relationship with root
     public static boolean lowestCommonAncestor236(TreeNode root, TreeNode p, TreeNode q, TreeNode[] ancestor) {
         if (root == null)
             return false;
