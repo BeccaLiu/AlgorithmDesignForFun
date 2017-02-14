@@ -44,6 +44,7 @@ public class IntegertoEnglishWords {
     }
 
     public static StringBuilder numberToWordsUnder1000(int num, HashMap<Integer, String> map) {
+        //can be separate by less than 20, less than 100
 
         int[] digit = new int[3];
         int i = 1;
@@ -78,6 +79,7 @@ public class IntegertoEnglishWords {
 
     }
 
+    //can using array instead of map
     public static HashMap buildMap() {
         HashMap<Integer, String> map = new HashMap<>();
         map.put(1, "One");
