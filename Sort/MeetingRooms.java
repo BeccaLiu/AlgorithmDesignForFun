@@ -13,7 +13,7 @@ import java.util.Comparator;
 public class MeetingRooms {
     public static void main(String[] args) {
         Interval[] intervals = new Interval[]{new Interval(0, 30), new Interval(5, 10), new Interval(15, 20), new Interval(35, 60)};
-        System.out.println(canAttendMeetings(intervals));
+        System.out.println(canAttendMeetingsFaster(intervals));
     }
 
     public static boolean canAttendMeetings(Interval[] intervals) {
@@ -32,4 +32,29 @@ public class MeetingRooms {
         }
         return true;
     }
+
+    public static boolean canAttendMeetingsFaster(Interval[] intervals) {
+        int[] start = new int[intervals.length];
+        int[] end = new int[intervals.length];
+        for (int i = 0; i < intervals.length; i++) {
+            start[i] = intervals[i].start;
+            end[i] = intervals[i].end;
+        }
+        Arrays.sort(start);
+        Arrays.sort(end);
+
+        int endP = 0;
+        int room = 0;
+        //for every end, there can be only one start, which means no overlapping, aka [0,10][5,15] for end 10 there are 0, 5 smaller than 10 which means there is a overlapping
+        for (int i = 0; i < start.length; i++) {
+            if (end[endP] > start[i])
+                room++;
+            else
+                endP++;
+            if (room > 1)
+                return false;
+        }
+        return true;
+    }
+
 }
