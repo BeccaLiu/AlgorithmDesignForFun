@@ -26,8 +26,9 @@ public class CourseScheduleI {
          */
         int course = 6;
         int[][] prerequisites = {{1, 0}, {3, 0}, {1, 2}, {2, 3}, {4, 2}, {5, 4}, {3, 5}};
+        System.out.println(canFinish(course, prerequisites));
         System.out.println(validCourse(course, prerequisites));
-        System.out.println(bfsTakeCourse(course, prerequisites));
+//        System.out.println(bfsTakeCourse(course, prerequisites));
     }
 
     /* can represent the course as a directed graph
@@ -107,6 +108,45 @@ public class CourseScheduleI {
             }
         }
         return true;
+
+    }
+
+    public static boolean canFinish(int numCourses, int[][] prerequisites) {
+        if (numCourses == 0)
+            return false;
+        int[] indegree = new int[numCourses];
+        int finishedCourse = 0;
+        ArrayList<ArrayList<Integer>> courses = new ArrayList<>(numCourses);
+        for (int i = 0; i < numCourses; i++)
+            courses.add(new ArrayList<>());
+
+        for (int i = 0; i < prerequisites.length; i++) {
+            int[] curr = prerequisites[i];
+            int pre = curr[1];
+            int post = curr[0];
+            indegree[post]++;
+            courses.get(pre).add(post);
+        }
+
+        ArrayDeque<Integer> top = new ArrayDeque<>();
+        for (int i = 0; i < indegree.length; i++) {
+            if (indegree[i] == 0)
+                top.offer(i);
+        }
+
+        while (!top.isEmpty()) {
+            int curr = top.poll();
+            ArrayList<Integer> posts = courses.get(curr);
+            finishedCourse++;
+            for (Integer post : posts) {
+                indegree[post]--;
+                if (indegree[post] == 0) {
+                    top.offer(post);
+                }
+            }
+        }
+
+        return finishedCourse == numCourses;
 
     }
 }
