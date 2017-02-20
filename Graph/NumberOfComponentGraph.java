@@ -22,6 +22,7 @@ public class NumberOfComponentGraph {
         for (int i = 0; i < n; i++)
             uf[i] = i;
         for (int i = 0; i < edges.length; i++) {
+            //union is also amortized 1
             int parentP = find(edges[i][0], uf);
             int parentQ = find(edges[i][1], uf);
             if (parentP != parentQ) {
@@ -33,6 +34,7 @@ public class NumberOfComponentGraph {
     }
 
     //path compression
+    //find is amortized 1
     public static int find(int p, int[] uf) {
         while (uf[p] != p) {
             uf[p] = uf[uf[p]];
