@@ -8,19 +8,19 @@ package Linear;
  */
 public class HighestProductOfThree {
     public static void main(String[] args) {
-        int[] arr = {1, 10, -5, 5, 10, -100};
+        int[] arr = {1, 10, -5, Integer.MIN_VALUE + 5};
         System.out.println(hpt(arr));
     }
 
     public static int hpt(int[] arr) {
         //which store the first three maximum number and two smallest number
-        int firstMax = arr[0];
-        int secondMax = arr[0];
-        int thirdMax = arr[0];
-        int firstMin = arr[0];
-        int secondMin = arr[0];
+        int firstMax = Integer.MIN_VALUE;
+        int secondMax = Integer.MIN_VALUE;
+        int thirdMax = Integer.MIN_VALUE;
+        int firstMin = Integer.MAX_VALUE;
+        int secondMin = Integer.MAX_VALUE;
 
-        for (int i = 1; i < arr.length; i++) {
+        for (int i = 0; i < arr.length; i++) {
             if (arr[i] > firstMax) {
                 thirdMax = secondMax;
                 secondMax = firstMax;
@@ -30,12 +30,42 @@ public class HighestProductOfThree {
                 secondMax = arr[i];
             } else if (arr[i] > thirdMax)
                 thirdMax = arr[i];
-            else if (arr[i] < firstMin) {
+            if (arr[i] < firstMin) {
                 secondMin = firstMin;
                 firstMin = arr[i];
             } else if (arr[i] < secondMin)
                 secondMin = arr[i];
         }
-        return Math.max(firstMax * secondMax * thirdMax, firstMax * firstMin * secondMin);
+
+        int max1 = firstMax;
+        if (inRange(max1, secondMax)) {
+            max1 *= secondMax;
+            if (inRange(max1, thirdMax)) {
+                max1 *= thirdMax;
+            } else
+                throw new IllegalArgumentException("out of range");
+        } else
+            throw new IllegalArgumentException("out of range");
+
+        int max2 = firstMax;
+        if (inRange(max2, firstMin)) {
+            max2 *= firstMin;
+            if (inRange(max2, secondMin)) {
+                max2 *= secondMin;
+            } else
+                throw new IllegalArgumentException("out of range");
+        } else
+            throw new IllegalArgumentException("out of range");
+
+
+        return Math.max(max1, max2);
+    }
+
+    public static boolean inRange(int val, int nextVal) {
+        int product = val * nextVal;
+        if (nextVal != 0) {
+            return product / nextVal == val;
+        }
+        return true;
     }
 }
