@@ -5,6 +5,7 @@ package Linear;
  * Highest product of three
  * product will be either: 1. product of first three biggest number 5*10*100
  * 2. product of first biggest number and two smallest number 5*-100*-10
+ * take array  length is 3 or 4 as consideration,  handle the integer overflow issue
  */
 public class HighestProductOfThree {
     public static void main(String[] args) {
