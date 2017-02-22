@@ -4,6 +4,8 @@ package Tree.BinaryTree;
  * Created by rliu on 1/30/17.
  * 285. Inorder Successor in BST
  * Given a binary search tree and a node in it, find the in-order successor of that node in the BST.
+ * Note: If the given node has no in-order successor in the tree, return null.
+ *
  */
 public class InorderSuccessorBST {
     public static void main(String[] args) {
@@ -17,7 +19,27 @@ public class InorderSuccessorBST {
     //Idea, using logN to find the node, and also keep track of a tentative successor, as if p.right==null, the successor will be a already visited node
     //if p.right!=null, then successor will be the leftmost node of p.right
     public static TreeNode inorderSuccessor(TreeNode root, TreeNode p) {
-        return dfsHelper(root, p, null);
+        if (p == null || root == null)
+            return null;
+        TreeNode successor = null;
+        //find the successor that is parent of p for [1,2,3,4,5,6]
+        while (p != root) {
+            if (root == null)
+                return null;
+            if (p.val < root.val) {
+                successor = root;
+                root = root.left;
+            } else
+                root = root.right;
+        }
+        //if p=2 now the successor is 1
+        //if p.right!=null which means the most closet node larger than p is at the right of p, we find the most left node of p.right
+        if (p.right != null) {
+            successor = p.right;
+            while (successor.left != null)
+                successor = successor.left;
+        }
+        return successor;
     }
 
     public static TreeNode dfsHelper(TreeNode root, TreeNode p, TreeNode succ) {
