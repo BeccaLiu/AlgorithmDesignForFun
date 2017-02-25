@@ -13,7 +13,6 @@ import java.util.Random;
 public class RandomPickIndex {
     int[] nums;
     Random rnd;
-
     public RandomPickIndex(int[] nums) {
         this.nums = nums;
         this.rnd = new Random();
