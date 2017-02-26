@@ -37,14 +37,14 @@ public class NumberOfIslands {
     //DFS
     //Space stack: O(m*n)
     //time: m*n*
-    public static int dfsLand(int[][] arr) {
-        if (arr == null || arr.length == 0)
+    public static int dfsLand(int[][] matrix) {
+        if (matrix == null || matrix.length == 0)
             return 0;
         int count = 0;
-        for (int i = 0; i < arr.length; i++) {
-            for (int j = 0; j < arr[0].length; j++) {
-                if (arr[i][j] == 1) {
-                    dfsLandHelper(arr, i, j);
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[0].length; j++) {
+                if (matrix[i][j] == 1) {
+                    dfsLandHelper(matrix, i, j);
                     count++;
                 }
             }
