@@ -30,7 +30,7 @@ public class Triangle {
             ArrayList<Integer> cur = new ArrayList<>(Arrays.asList(a));
             list.add(cur);
         }
-        minimumTotal(list);
+        minimumTotalFaster(list);
     }
 
     //can not pass the test case, as here, I am using pre=cur
@@ -61,6 +61,27 @@ public class Triangle {
                 min = pre[i];
         }
         return min;
+    }
+
+    public static int minimumTotalFaster(ArrayList<ArrayList<Integer>> triangle) {
+        if (triangle == null || triangle.size() == 0)
+            return 0;
+        int min = Integer.MAX_VALUE;
+        for (int j = 0; j < triangle.get(triangle.size() - 1).size(); j++) {
+            min = Math.min(triangle.get(triangle.size() - 1).get(j), min);
+        }
+
+        for (int i = triangle.size() - 2; i >= 0; i--) {
+            int localMin = Integer.MAX_VALUE;
+            for (int j = 0; j < triangle.get(i).size(); j++) {
+                int local = Math.min(triangle.get(i + 1).get(j), triangle.get(i + 1).get(j + 1)) + triangle.get(i).get(j);
+                triangle.get(i).set(j, local);
+                localMin = Math.min(local, localMin);
+            }
+            min = localMin;
+        }
+        return min;
+
     }
 
 }
