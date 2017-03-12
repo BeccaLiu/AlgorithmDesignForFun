@@ -31,16 +31,17 @@ public class Piece {
         }
         //only check if the move from to is falls in the rule
         //check to cell is not occupied or is occupied by other color piece which it can attack
-
+        return true;
     }
 
     //child class overwrite this function
     public boolean isMovingCorrectDirection(Cell from, Cell to) {
-
+        return true;
     }
 
     //child class overwrite this function
     public boolean canBeAttackedBy(Piece piece) {
+        return true;
     }
 
 
