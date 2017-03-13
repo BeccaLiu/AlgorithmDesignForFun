@@ -1,8 +1,6 @@
 package Linear.QueuePointer;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Random;
+import java.util.*;
 import java.util.stream.IntStream;
 
 /**
@@ -90,7 +88,29 @@ public class ThreeSum {
         }
     }
 
+    public static List<List<Integer>> threeSum(int[] nums) {
+        List<List<Integer>> list = new ArrayList<>();
+        if (nums == null || nums.length == 0)
+            return list;
+        for (int i = 0; i < nums.length - 2; i++) {
+            int target = -nums[i];
+            HashMap<Integer, Integer> map = new HashMap<>();
+            for (int j = i + 1; j < nums.length; j++) {
+                Integer index = map.get(nums[j]);
+                if (index != null) {
+                    List<Integer> temp = Arrays.asList(i, index, j);
+                    list.add(temp);
+                } else
+                    map.put(target - nums[j], j);
+            }
+        }
+        return list;
+    }
+
+
     public static void main(String[] args) {
+        int[] temparr = new int[]{-1, 0, 1, 2, -1, -4};
+        System.out.println(threeSum(temparr));
         int size = 10;
         int[] arr = new int[size];
         Random random = new Random();
@@ -101,5 +121,6 @@ public class ThreeSum {
         Arrays.sort(arr);
         System.out.println(Arrays.toString(arr));
         threeSum3(arr, 5);
+
     }
 }
