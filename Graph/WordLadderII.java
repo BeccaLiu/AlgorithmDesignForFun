@@ -39,6 +39,7 @@ public class WordLadderII {
         //String[] arr = {"hot", "dot", "dog", "lot", "log","cog"};
         List<String> list = new ArrayList<>(Arrays.asList(arr));
         System.out.println(findLadders("magic", "pearl", list));
+        System.out.println(findLaddersBFS("magic", "pearl", list));
     }
 
     public static List<List<String>> findLadders(String beginWord, String endWord, List<String> wordList) {
@@ -123,5 +124,47 @@ public class WordLadderII {
         char[] charWord = word.toCharArray();
         charWord[index] = k;
         return new String(charWord);
+    }
+
+    public static List<List<String>> findLaddersBFS(String beginWord, String endWord, List<String> wordList) {
+        List<List<String>> ret = new ArrayList<>();
+        if (beginWord == null && beginWord.length() == 0 || endWord == null || endWord.length() == 0 || beginWord.length() != endWord.length())
+            return ret;
+        HashSet<String> dict = new HashSet<>();
+        for (String s : wordList)
+            dict.add(s);
+        List<String> temp = new ArrayList<>();
+        temp.add(beginWord);
+        ret.add(temp);
+        boolean isFound = false;
+        while (!isFound) {
+            List<List<String>> next = new ArrayList<>();
+            for (List<String> list : ret) {
+                String origin = list.get(list.size() - 1);
+                for (int i = 0; i < origin.length(); i++) {
+                    for (char c = 'a'; c <= 'z'; c++) {
+                        if (c != origin.charAt(i)) {
+                            String transform = replace(origin, i, c);
+                            if (dict.contains(transform)) {
+                                ArrayList<String> newList = new ArrayList<String>(list);
+                                newList.add(transform);
+                                next.add(newList);
+                                if (transform.equals(endWord))
+                                    isFound = true;
+                            }
+                        }
+                    }
+                }
+            }
+
+            //at the end of each level ,remember to remove the word from the list, else it will has loop
+            for (List<String> s : next) {
+                dict.remove(s.get(s.size() - 1));
+            }
+
+            ret = next;
+            next = new ArrayList<>();
+        }
+        return ret;
     }
 }
