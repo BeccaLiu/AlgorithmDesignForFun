@@ -14,6 +14,13 @@ public class Pow {
         System.out.println((-3 / 2));
     }
 
+    //x^4=x^2*x^2*x^0
+    //x^5=x^2*x^2*x^1
+    //
+    //x^4=x^-2*x^-2*x^0
+    //x^-5=x^-2*x^-2*x^-1
+    //so base case will be n==0 n==1 or n==-1
+
     public static double myPow(double x, int n) {
         if (n == 0)
             return 1;
@@ -31,8 +38,10 @@ public class Pow {
         if (mid == n - mid)
             return partRs * partRs;
         else {
+            //for case x^-5=x^-2*x^-2*x^-1
             if (n < 0)
                 return partRs * partRs * myPow(x, -1);
+                //for case x^4=x^-2*x^-2*x^0
             else
                 return partRs * partRs * x;
         }
