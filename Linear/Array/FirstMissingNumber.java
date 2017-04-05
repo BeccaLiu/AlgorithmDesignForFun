@@ -5,7 +5,7 @@ package Linear.Array;
  */
 public class FirstMissingNumber {
     public static void main(String[] args) {
-        firstMissingPositive(new int[]{9, 4, -1, 2, 1, 3, 6, 5, 7, 8, 8, 9});
+        firstMissingPositive(new int[]{1, 2, 3, -1, 4, 5});
     }
 
     public static int firstMissingPositive(int[] A) {
