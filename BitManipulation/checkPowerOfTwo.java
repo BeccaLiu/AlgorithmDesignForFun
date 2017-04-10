@@ -18,6 +18,7 @@ public class checkPowerOfTwo {
     }
 
     public static boolean checkPowerOf2(int n) {
+        //if n is smaller than n, definitely it would not be power of 2
         if (n <= 0) return false;
         return (n & (n - 1)) == 0;
     }
