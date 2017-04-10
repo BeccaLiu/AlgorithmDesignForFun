@@ -37,10 +37,37 @@ public class GasStation {
         return -1;
     }
 
+    public static int canCompleteCircuit(int[] gas, int[] cost) {
+        // write your code here
+        if (gas == null || cost == null)
+            return -1;
+        if (gas.length != cost.length)
+            return -1;
+
+        int right = 0; //already including
+        int left = gas.length - 1; //left-1 the boundary of range inclusively
+        int tank = gas[right] - cost[right];
+
+        while (left > right) {
+            if (tank < 0) {
+                tank += gas[left] - cost[left--];
+            } else {
+                tank += gas[++right] - cost[right];
+            }
+
+        }
+        return tank < 0 ? -1 : (left + 1) % gas.length;
+
+    }
+
     public static void main(String[] args) {
         int[] gas = {3, 4, 3, 6, 7, 1, 2};
         int[] cost = {4, 4, 6, 7, 5, 1, 3};
         System.out.println(canCompleteCircle1(gas, cost));
+
+        int[] gas1 = {1};
+        int[] cost1 = {2};
+        System.out.println(canCompleteCircuit(gas1, cost1));
 
     }
 }
