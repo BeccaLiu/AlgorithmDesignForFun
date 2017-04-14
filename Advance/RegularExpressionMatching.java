@@ -49,10 +49,10 @@ public class RegularExpressionMatching {
     }
 
     //when a*ac match aaaac, we use for loop to try every index
-    //but we can unify to two case: 1. detele a* ,match 0
+    //but we can unify to two case: 1. delete a* ,match 0
     //                              2. keep a*, match 1
     //complexity does not improve, just turn horizontal complexity to vertical complexity
-    //still duplicate work, the can not distingush default false and real false
+    //still duplicate work, the can not distinguish default false and real false
     public static boolean recursion2(String s, String p, int i, int j) {
         if (j == p.length())
             return i == s.length();
