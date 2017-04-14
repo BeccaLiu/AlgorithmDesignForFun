@@ -10,28 +10,31 @@ import java.util.List;
  */
 public class WordBreak {
     public static void main(String[] args) {
-        List<String> list = Arrays.asList("leet", "cod");
+        List<String> list = Arrays.asList("leet", "code");
         System.out.println(wordBreak("leetcode", list));
     }
 
     public static boolean wordBreak(String s, List<String> wordDict) {
         if (wordDict == null || wordDict.size() == 0)
             return false;
-        HashSet<String> set = new HashSet<>();
-        for (String ss : wordDict)
-            set.add(ss);
+        HashSet<String> dict = new HashSet<>();
+        int maxLen = Integer.MIN_VALUE;
+        for (String ss : wordDict) {
+            dict.add(ss);
+            maxLen = Math.max(maxLen, ss.length());
+        }
         boolean[] cache = new boolean[s.length() + 1];
         cache[0] = true;
 
-        for (int i = 0; i < s.length(); i++) {
-            boolean isValid = false;
-            for (int j = 0; j <= i && !isValid; j++) {
-                String curr = s.substring(j, i + 1);
-                isValid = set.contains(curr) && cache[j];
+        for (int i = 1; i < cache.length; i++) {
+            for (int j = i - 1; j >= 0 && j >= i - maxLen; j--) {
+                if (cache[j] && dict.contains(s.substring(j, i))) {
+                    cache[i] = true;
+                    break;
+                }
             }
-            cache[i + 1] = isValid;
         }
-        return cache[cache.length - 1];
+        return cache[s.length()];
 
     }
 }
