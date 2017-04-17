@@ -11,7 +11,32 @@ package Advance;
  */
 public class UglyNumber {
     public static void main(String[] args) {
+        System.out.println(isUgly(30));
         System.out.println(nthUglyNumber(6));
+    }
+
+    public static boolean isUgly(int num) {
+        if (num < 0)
+            return false;
+        int reminder = 0;
+        while (reminder == 0 && num != 1) {
+            reminder = num % 2;
+            if (reminder == 0)
+                num /= 2;
+        }
+        reminder = 0;
+        while (reminder == 0 && num != 1) {
+            reminder = num % 3;
+            if (reminder == 0)
+                num /= 3;
+        }
+        reminder = 0;
+        while (reminder == 0 && num != 1) {
+            reminder = num % 5;
+            if (reminder == 0)
+                num /= 5;
+        }
+        return num == 1;
     }
 
     public static int nthUglyNumber(int n) {
