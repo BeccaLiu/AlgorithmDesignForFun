@@ -12,7 +12,9 @@ package Tree.BinarySerach;
  */
 public class FindMinimumInRotatedArray {
     public static void main(String[] args) {
-        System.out.print(findMin(new int[]{5, 6, 7, 0, 1, 2, 4}));
+
+        System.out.println(findMin(new int[]{5, 6, 7, 0, 1, 2, 4}));
+        System.out.print(findMinDup(new int[]{7, 7, 7, 7, 7, 0, 1, 2}));
     }
 
     public static int findMin(int[] nums) {
@@ -36,5 +38,23 @@ public class FindMinimumInRotatedArray {
             }
         }
         return nums[left];
+    }
+
+    public static int findMinDup(int[] num) {
+        // write your code here
+        int start = 0;
+        int end = num.length - 1;
+        while (start < end) {
+
+            int mid = start + (end - start) / 2;
+            if (num[mid] > num[end]) { //means min is at right side,and definitely not equals to mid, as mid is bigger than something
+                start = mid + 1;
+            } else if (num[mid] < num[end]) {// means min is at left side, but mid could be potential min,
+                end = mid;
+            } else {
+                end--;
+            }
+        }
+        return num[start];
     }
 }
