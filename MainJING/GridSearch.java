@@ -1,5 +1,8 @@
 package MainJING;
 
+import java.util.ArrayDeque;
+import java.util.HashSet;
+
 /**
  * Created by rliu on 5/1/17 9:09 PM.
  * H---->8|
@@ -35,7 +38,34 @@ public class GridSearch {
 
         level2.next.next.next.next.next.below = level3.next.next.next.next.next.next.next.next.next;
 
-        System.out.println(searchNodes(level0, 55));
+        System.out.println(searchNodes(level0, 25));
+        System.out.println(searchNodesBFS(level0, 25));
+    }
+
+    public static int searchNodesBFS(Node root, int val) {
+        HashSet<Node> visited = new HashSet<>();
+        ArrayDeque<Node> queue = new ArrayDeque<>();
+        visited.add(root);
+        int hop = 0;
+        queue.offer(root);
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            for (int i = 0; i < size; i++) {
+                Node curr = queue.poll();
+                if (curr.value == val)
+                    return hop;
+                if (curr.next != null && !visited.contains(curr.next) && curr.value < val) {
+                    queue.offer(curr.next);
+                    visited.add(curr.next);
+                }
+                if (curr.below != null && !visited.contains(curr.below)) {
+                    queue.offer(curr.below);
+                    visited.add(curr.below);
+                }
+            }
+            hop++;
+        }
+        return -1;
     }
 
     public static int searchNodes(Node root, int val) {
