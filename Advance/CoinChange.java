@@ -12,6 +12,8 @@ public class CoinChange {
         System.out.println(coinChange(new int[]{1}, 0));//0
         System.out.println(coinChange(new int[]{12}, 11));//-1
         System.out.println(coinChange(new int[]{474, 83, 404, 3}, 264));//8
+        System.out.println(coinChangeDFS(new int[]{1, 2, 5}, 11, 0));
+        System.out.println(coinChangeDP(new int[]{2, 3, 5, 6}, 10));
 
     }
 
@@ -36,5 +38,38 @@ public class CoinChange {
                     dp[i] = Math.min(dp[i], dp[i - j] + 1);
         }
         return dp[amount] == Integer.MAX_VALUE ? -1 : dp[amount];
+    }
+
+    //count solution number
+    //eg 1,2,3 with 4 [1,1,1,1][1,1,2][2,2][1,3] ->4
+
+    public static long coinChangeDP(int[] coins, int amount) {
+        long[] DP = new long[amount + 1]; // O(N) space.
+        DP[0] = (long) 1;    // n == 0 case.
+        for (int coin : coins) {
+            for (int j = coin; j < DP.length; j++) {
+                // The only tricky step.
+                DP[j] += DP[j - coin];
+            }
+        }
+        return DP[amount];
+
+    }
+
+    //dfs will exceed time, but can not use cache
+    //count how many solution
+    public static int coinChangeDFS(int[] coins, int amount, int idx) {
+        if (amount == 0)
+            return 1;
+        else if (amount < 0)
+            return 0;
+        int cnt = 0;
+        for (int i = idx; i < coins.length; i++) {
+            if (amount - coins[i] >= 0)
+                cnt += coinChangeDFS(coins, amount - coins[i], i);
+            else
+                break;
+        }
+        return cnt;
     }
 }
